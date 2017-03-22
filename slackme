@@ -1,0 +1,23 @@
+#!/bin/bash
+
+CMD="$@"
+TEMPFILE=/tmp/slackme.$RANDOM.tmp
+BACKTICKS=\`\`\`
+TAIL_BYTES=3500
+
+if [ -z "$SLACKME_INCOMING_WEBHOOK_URL" ]; then
+	>&2 echo "SLACKME_INCOMING_WEBHOOK_URL" must be defined
+	exit 1
+fi
+
+function run_command_and_slack_result()
+{
+	eval "$CMD" > $TEMPFILE
+	CMD_STATUS=$?
+	CMD_TAIL=$( tail -c $TAIL_BYTES $TEMPFILE | jq --slurp --raw-input '.' | sed 's/^"//' | sed 's/"$//' )
+	curl -s -X POST -H 'Content-type: application/json' --data "{\"text\":\"Hey <"'!'"channel>, command $BACKTICKS$CMD$BACKTICKS exited with status code $CMD_STATUS.\n\nOutput saved to $TEMPFILE, here are the last $TAIL_BYTES bytes: \n$BACKTICKS\n$CMD_TAIL\n$BACKTICKS\",\"mrkdwn\": true}" $SLACKME_INCOMING_WEBHOOK_URL -o /dev/null 
+}
+
+trap "" HUP
+echo "saving output of $CMD to $TEMPFILE"
+run_command_and_slack_result &
