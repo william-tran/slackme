@@ -2,6 +2,10 @@
 
 Hey slackers, tired of staring at your terminal to wait for a long running command to finish? Or forgetting to check that it finished, and wasting precious cycle time? Slack better, with slackme.
 
+## Dependencies
+
+`slackme` is written in bash, and requires `curl`, `jq`, and the usual suspects. 
+
 ## Installation
 
 1. Create a private channel for yourself, and then create an [Incoming Webhook](https://api.slack.com/incoming-webhooks) Slack integration that points to your private channel.
