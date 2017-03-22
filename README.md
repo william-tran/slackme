@@ -47,7 +47,7 @@ Contol is given back immediately. You can watch the output of your command via t
 >Received result Failure[value=org.gradle.initialization.Reported...
 >```
 
-The including more than 3500 bytes of output seems to cause Slack to not `pre` format the output. 
+Including more than 3500 bytes of output seems to cause Slack to not `pre` format the output. 
 
 ## License
 
