@@ -8,7 +8,7 @@ Hey slackers, tired of staring at your terminal to wait for a long running comma
 
 ## Installation
 
-1. Create a private channel for yourself, and then create an [Incoming Webhook](https://api.slack.com/incoming-webhooks) Slack integration that points to your private channel.
+1. Create an [Incoming Webhook](https://my.slack.com/services/new/incoming-webhook/) Slack integration that points to you or a channel of your choice.
 2. Set the webhook url in an environment variable called `SLACKME_INCOMING_WEBHOOK_URL`, eg in your .bash_profile:
 
 ```
